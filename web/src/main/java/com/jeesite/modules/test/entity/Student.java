@@ -36,7 +36,7 @@ public class Student extends DataEntity<Student> {
                 ", studentNumber=" + studentNumber +
                 '}';
     }
-
+    @ExcelField(title = "学生id", align = ExcelField.Align.CENTER)
     public Integer getStudentId() {
         return studentId;
     }

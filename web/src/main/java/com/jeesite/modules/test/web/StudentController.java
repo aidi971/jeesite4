@@ -109,7 +109,6 @@ public class StudentController extends BaseController {
             StringBuilder failureMsg = new StringBuilder();
             ExcelImport excelImport = new ExcelImport(multipartFile, 1,"Sheet1");
             List<Student> list = excelImport.getDataList(Student.class);
-            System.out.println(list);
             if (list == null) {
                 return new Response(503, "导入失败", "数据为空");
             }
@@ -127,7 +126,7 @@ public class StudentController extends BaseController {
                 failureMsg.insert(0, ",失败" + failNum + "条记录。");
                 return new Response(501, "失败", failureMsg);
             }
-            return new Response(200, "成功导入", successNum + "条记录");
+            return new Response(200, "成功导入"+successNum + "条记录",list );
 
         } catch (Exception e) {
             return new Response(502, "导入失败，检查文件类型", e.getMessage());
