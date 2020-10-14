@@ -18,13 +18,15 @@ public interface StudentDao extends CrudDao<Student> {
 
     Student getInfoById(Student student);
 
-    Student findInfoById(int id);
+    Student findInfoById(Integer studentId);
 
-    Student findByStudentNumber(String number);
+    Student findByStudentNumber(Integer studentNumber);
+
+    void deleteStudent(Integer studentId);
 
     void add(Student student);
 
     void updateInfo(@Param("student_name")String studentName,
-                    @Param("sex")int sex,
-                    @Param("student_number")String studentNumber,int studentId);
+                    @Param("sex")String sex,
+                    @Param("student_number")Integer studentNumber,Integer studentId);
 }

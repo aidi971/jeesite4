@@ -29,11 +29,13 @@
     <select id="findByStudentNumber" resultType="com.jeesite.modules.test.entity.Student">
         select * from student where student_number=#{studentNumber}
     </select>
-
+    <delete id="deleteStudent">
+        delete from student where student_id =#{studentId}
+    </delete>
 <!--    <update id="updateInfo" parameterType="com.jeesite.modules.test.entity.Student">-->
 <!--        update student set student_name=#{studentName},sex=#{sex},student_number=#{studentNumber} where student_id=#{studentId}-->
 <!--    </update>-->
-    <update id="updateInfo"  parameterType="com.jeesite.modules.test.entity.Student">
+    <update id="updateInfo" parameterType="com.jeesite.modules.test.entity.Student">
         UPDATE student
         <trim prefix="set" suffixOverrides=",">
             <if test="studentName!=null">student_name=#{studentName},</if>
@@ -42,7 +44,7 @@
         </trim>
         WHERE student_id=#{studentId}
     </update>
-    <insert id="add" parameterType="Student">
+    <insert id="add" parameterType="com.jeesite.modules.test.entity.Student">
         insert into student(student_name,sex,student_number) values (#{studentName},#{sex},#{studentNumber})
     </insert>
     <select id="findInfoById" resultType="com.jeesite.modules.test.entity.Student">

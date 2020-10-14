@@ -35,7 +35,7 @@ public class StudentService extends CrudService<StudentDao, Student> {
      *
      * @param id
      */
-    public void updateStudentInfo(String studentName,int sex,String studentNumber, int id) {
+    public void updateStudentInfo(String studentName,String sex,Integer studentNumber, Integer id) {
        studentDao.updateInfo(studentName,sex,studentNumber,id);
     }
 
@@ -64,15 +64,15 @@ public class StudentService extends CrudService<StudentDao, Student> {
      * @param student
      */
 
-    public void deleteStudentInfo(Student student) {
-        super.delete(student);
+    public void deleteStudentInfo(Integer id) {
+        studentDao.deleteStudent(id);
     }
 
-    public Student findStudentInfoById(int id) {
+    public Student findStudentInfoById(Integer id) {
         return studentDao.findInfoById(id);
     }
 
-    public Student findByStudentNumber(String number){
+    public Student findByStudentNumber(Integer number){
         return studentDao.findByStudentNumber(number);
     }
 }

@@ -5,7 +5,6 @@ import com.jeesite.common.mybatis.annotation.Column;
 import com.jeesite.common.mybatis.annotation.Table;
 import com.jeesite.common.mybatis.mapper.query.QueryType;
 import com.jeesite.common.utils.excel.annotation.ExcelField;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 /**
  * @Author: eddie
@@ -23,30 +22,28 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 
 public class Student extends DataEntity<Student> {
+    private Integer studentId;
+    private String studentName;
+    private String sex;
+    private Integer studentNumber;
+
     @Override
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
                 ", studentName='" + studentName + '\'' +
-                ", sex=" + sex +
-                ", studentNumber='" + studentNumber + '\'' +
+                ", sex='" + sex + '\'' +
+                ", studentNumber=" + studentNumber +
                 '}';
     }
 
-    private int studentId;
-    private String studentName;
-    private int sex;
-    private String studentNumber;
-
-
-    public int getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
-
     @ExcelField(title = "学生姓名", align = ExcelField.Align.CENTER)
     public String getStudentName() {
         return studentName;
@@ -57,20 +54,20 @@ public class Student extends DataEntity<Student> {
     }
 
     @ExcelField(title = "性别", align = ExcelField.Align.CENTER)
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    @ExcelField(title = "学生证号码",align = ExcelField.Align.CENTER)
-    public String getStudentNumber() {
+    @ExcelField(title = "学生证号码", align = ExcelField.Align.CENTER)
+    public Integer getStudentNumber() {
         return studentNumber;
     }
 
-    public void setStudentNumber(String studentNumber) {
+    public void setStudentNumber(Integer studentNumber) {
         this.studentNumber = studentNumber;
     }
 }

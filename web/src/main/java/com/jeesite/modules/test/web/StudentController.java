@@ -75,8 +75,7 @@ public class StudentController extends BaseController {
     @CrossOrigin
     @PostMapping("/delete/{id}")
     public Response deleteStudent(@PathVariable("id") int id) {
-        Student student = studentService.findStudentInfoById(id);
-        studentService.delete(student);
+        studentService.deleteStudentInfo(id);
         return new Response(200, "成功", null);
     }
 
