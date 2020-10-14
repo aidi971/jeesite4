@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.test.dao.StudentDao">
+
+    <!-- 查询数据
+    <select id="findList" resultType="TestDataChild">
+        SELECT ${sqlMap.column.toSql()}
+        FROM ${sqlMap.table.toSql()}
+        <where>
+            ${sqlMap.where.toSql()}
+        </where>
+        ORDER BY ${sqlMap.order.toSql()}
+    </select> -->
+    <!--    <select id="findListForMap" resultType="map">-->
+    <!--        SELECT * FROM edtest e-->
+    <!--        <where>-->
+    <!--            <if test="testInput != null and testInput != ''">-->
+    <!--                AND e.test_input = #{testInput}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--        <if test="page != null and page.orderBy != null and page.orderBy != ''">-->
+    <!--            ORDER BY ${page.orderBy}-->
+    <!--        </if>-->
+    <!--    </select>-->
+    <select id="findAll" resultType="com.jeesite.modules.test.entity.Student">
+        select * from student
+    </select>
+
+    <select id="findByStudentNumber" resultType="com.jeesite.modules.test.entity.Student">
+        select * from student where student_number=#{studentNumber}
+    </select>
+
+<!--    <update id="updateInfo" parameterType="com.jeesite.modules.test.entity.Student">-->
+<!--        update student set student_name=#{studentName},sex=#{sex},student_number=#{studentNumber} where student_id=#{studentId}-->
+<!--    </update>-->
+    <update id="updateInfo"  parameterType="com.jeesite.modules.test.entity.Student">
+        UPDATE student
+        <trim prefix="set" suffixOverrides=",">
+            <if test="studentName!=null">student_name=#{studentName},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="studentNumber!=null">student_number=#{studentNumber},</if>
+        </trim>
+        WHERE student_id=#{studentId}
+    </update>
+    <insert id="add" parameterType="Student">
+        insert into student(student_name,sex,student_number) values (#{studentName},#{sex},#{studentNumber})
+    </insert>
+    <select id="findInfoById" resultType="com.jeesite.modules.test.entity.Student">
+        select * from student where student_id=#{studentId}
+    </select>
+
+</mapper>
