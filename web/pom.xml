@@ -69,7 +69,6 @@
 			<version>${project.parent.version}</version>
 		</dependency> -->
 
-		
 		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -19,8 +19,7 @@ demoMode: false
 #======================================#
 
 server:
-
-  port: 8980
+  port: 8981
   servlet:
     context-path: /
   tomcat:
@@ -170,7 +169,10 @@ jdbc:
 #======================================#
 
 spring:
-  
+  http:
+    multipart:
+
+
   # 应用程序名称
   application:
     name: jeesite-web

@@ -21,15 +21,24 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
         @Column(includeEntity = DataEntity.class)
 })
 
-@EntityScan
+
 public class Student extends DataEntity<Student> {
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", studentName='" + studentName + '\'' +
+                ", sex=" + sex +
+                ", studentNumber='" + studentNumber + '\'' +
+                '}';
+    }
 
     private int studentId;
     private String studentName;
     private int sex;
     private String studentNumber;
 
-    @ExcelField(title = "学生id", width = 11)
+
     public int getStudentId() {
         return studentId;
     }
@@ -38,7 +47,7 @@ public class Student extends DataEntity<Student> {
         this.studentId = studentId;
     }
 
-    @ExcelField(title = "学生姓名", width = 45)
+    @ExcelField(title = "学生姓名", align = ExcelField.Align.CENTER)
     public String getStudentName() {
         return studentName;
     }
@@ -47,7 +56,7 @@ public class Student extends DataEntity<Student> {
         this.studentName = studentName;
     }
 
-    @ExcelField(title = "性别", width = 1)
+    @ExcelField(title = "性别", align = ExcelField.Align.CENTER)
     public int getSex() {
         return sex;
     }
@@ -56,7 +65,7 @@ public class Student extends DataEntity<Student> {
         this.sex = sex;
     }
 
-    @ExcelField(title = "学生号", width = 45)
+    @ExcelField(title = "学生证号码",align = ExcelField.Align.CENTER)
     public String getStudentNumber() {
         return studentNumber;
     }

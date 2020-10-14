@@ -1,6 +1,5 @@
 package com.jeesite.modules.test.web;
 
-import com.jeesite.common.config.Global;
 import com.jeesite.common.utils.excel.ExcelImport;
 import com.jeesite.common.web.BaseController;
 import com.jeesite.modules.response.Response;
@@ -10,7 +9,6 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -26,6 +24,7 @@ import java.util.List;
 public class StudentController extends BaseController {
     @Autowired
     private StudentService studentService;
+
 
     @CrossOrigin
     @GetMapping("/all")
@@ -81,21 +80,43 @@ public class StudentController extends BaseController {
         return new Response(200, "成功", null);
     }
 
+    //
+//    @CrossOrigin
+//    @RequestMapping(value = "save",method = RequestMethod.POST)
+//    public Response excelImport(@RequestParam("file") MultipartFile file) throws Exception {
+//        int successNum = 0;
+//        int failNum = 0;
+//        StringBuilder failMsg = new StringBuilder();
+//        ExcelImport ex = new ExcelImport(file, 0, 0);
+//        List<Student> list = ex.getDataList(Student.class);
+//        if (list != null) {
+//            for (Student student : list) {
+//                studentService.addStudentInfo(student);
+//                successNum++;
+//
+//            }
+//        } else {
+//            return new Response(500, "检查文件格式或excel为空", null);
+//        }
+//        return new Response(200, "成功", null);
+//    }
 
     @CrossOrigin
-    @PostMapping("/excel/add")
-    public Response excelImport(MultipartFile multipartFile) throws IOException, InvalidFormatException {
+    @RequestMapping(value = "save",method = RequestMethod.POST)
+    public Response excelImport(@RequestParam("multipartFile") MultipartFile multipartFile) throws IOException, InvalidFormatException {
         try {
             int successNum = 0;
             int failNum = 0;
             StringBuilder failureMsg = new StringBuilder();
-            ExcelImport excelImport = null;
-            excelImport = new ExcelImport(multipartFile, 1, 0);
-
+            ExcelImport excelImport = new ExcelImport(multipartFile, 1,"Sheet1");
             List<Student> list = excelImport.getDataList(Student.class);
+            System.out.println(list);
+            if (list == null) {
+                return new Response(503, "导入失败", "数据为空");
+            }
             for (Student student : list) {
                 try {
-                    studentService.save(student);
+                    studentService.addStudentInfo(student);
                     successNum++;
                 } catch (ConstraintViolationException e) {
                     failNum++;
@@ -110,7 +131,7 @@ public class StudentController extends BaseController {
             return new Response(200, "成功导入", successNum + "条记录");
 
         } catch (Exception e) {
-            return new Response(502,"导入失败，检查文件类型",e.getMessage());
+            return new Response(502, "导入失败，检查文件类型", e.getMessage());
         }
 //        for (int i = excelImport.getDataRowNum();i<excelImport.getLastDataRowNum();i++){
 //            Row row = excelImport.getRow(i);
@@ -119,13 +140,13 @@ public class StudentController extends BaseController {
 //                studentService.save();
 //            }
 //        }
-      }
+//      }
+    }
 }
-
 
 //    public Response importFile(Student student, MultipartFile file) {
 //        try {
-//            ImportExcelUtil util = new ImportExcelUtil();
+//            ExcelUtil util = new ExcelUtil();
 //            List<Map<String, Object>> list = util.getExcelInfo(file);
 //            Map<String,Object> map = new HashMap<String, Object>();
 //
